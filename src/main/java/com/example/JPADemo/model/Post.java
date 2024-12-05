@@ -2,6 +2,8 @@ package com.example.JPADemo.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +22,7 @@ import jakarta.persistence.OneToMany;
 public class Post {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // AI, Primary
+	@GeneratedValue(strategy = GenerationType.AUTO) // AI, Primary
 	private Long id;
 	
 	@Column(nullable =false)
@@ -39,6 +41,7 @@ public class Post {
 	@ManyToOne(fetch=FetchType.LAZY) // FetchType.LAZY DAta is retrieved on demand
 									// FetchType.EAGER // Data is retrieved together with the parent object
 	@JoinColumn(name="user_id", nullable=false)
+	@JsonIgnore // I don't want this is my API response
 	private User user;
 
 	public Long getId() {
