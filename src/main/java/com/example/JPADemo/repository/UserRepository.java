@@ -2,6 +2,8 @@ package com.example.JPADemo.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.JPADemo.model.User;
@@ -31,6 +33,11 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 	//SELECT * FROM user WHERE age < 18
 	List<User> findByAgeLessThan(int age);
+	
+	
+	// Pagination
+	// To enable pagination on findAll
+	Page<User> findAll(Pageable pageable);
 	
 	
 	
