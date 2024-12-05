@@ -1,10 +1,15 @@
 package com.example.JPADemo.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 // More settings can refer : https://www.baeldung.com/jpa-entities
@@ -32,6 +37,19 @@ public class User {
 	private String email;
 	
 	private int age;
+	
+	
+	// 1 user has many review
+	// Fetch TYpe = LAZY it will be loaded on demand , EAGER = loaded together with the Parent
+	// CASCADETYPE -> When parent is deleted, what happen to the child (Detach,Remove)
+	
+	@OneToMany(mappedBy= "user", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Review> reviews;
+	
+	
+	// 1 user has many post
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Post> posts;
 
 	public Long getId() {
 		return id;
@@ -64,6 +82,23 @@ public class User {
 	public void setAge(int age) {
 		this.age = age;
 	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+	
 	
 	
 
